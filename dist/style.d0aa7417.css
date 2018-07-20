@@ -1,0 +1,293 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+/* MISC PROPERTIES */
+
+.text-center {
+  text-align: center;
+}
+
+/* HEADER BAR */
+
+.headerBar {
+  background-color: lightgray;
+  border-bottom: 2px solid darkcyan;
+  padding: 5px;
+  font-size: 1.2rem;
+}
+
+.headerBar form {
+  width: 100%;
+}
+
+.headerBar input {
+  font-size: 1.2rem;
+  margin: 0 12px 0 12px;
+}
+
+.headerBar input:last-of-type {
+  margin-left: 0;
+}
+
+.headerBar input[type="text"] {
+  width: 70px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: background-color 2s;
+  transition-timing-function: ease-in-out;
+}
+
+.headerBar input[type="text"]:hover, .headerBar input[type="text"]:focus {
+  background-color: white;
+  transition: background-color 0.2s;
+}
+
+.headerBar input[type="submit"] {
+  height: 1.6em;
+  font-weight: bold;
+  border: 1px solid gray;
+  border-radius: 4px;
+  box-shadow: 1px 1px 0 black;
+  background-color: #E0FFFF;
+}
+
+.headerBar input[type="submit"]:hover {
+  background-color: #E0EFEF;
+}
+
+.headerBar input[type="submit"]:active {
+  background-color: #D0DFDF;
+}
+
+/* CONTENT */
+
+.contentWrapper {
+  height: 100%;
+  background-color: #f3f3f3;
+}
+
+.contentLeft {
+  height: 100%;
+  width: 35%;
+  float: left;
+  position: relative;
+  overflow-y: auto;
+}
+
+.contentLeft h1 {
+  margin: 0;
+  position: sticky;
+  top: 0;
+  left: 0;
+  color: white;
+  background-color: deepskyblue;
+  box-shadow: 0 1px 3px #9F9F9F;
+  font-size: 1.2rem;
+}
+
+.contentRight {
+  height: 100%;
+  width: 65%;
+  float: right;
+  position: relative;
+  overflow-y: auto;
+}
+
+.contentRight h1 {
+  margin: 0;
+  font-family: Arial;
+  position: sticky;
+  top: 0;
+  left: 0;
+  color: white;
+  background-color: deepskyblue;
+  box-shadow: 0 1px 3px #9F9F9F;
+  font-size: 1.2rem;
+}
+
+#map-container {
+  margin: 0;
+  position: sticky;
+  top: 1%;
+  height: 600px;
+  width: 90%;
+  font-family: sans-serif;
+  background-color: #04041b;
+}
+#info {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  z-index: 100;
+  color: white;
+}
+/* AIRPORT LIST */
+
+ul.airportList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.airportList li {
+  margin: 0;
+  padding: 5px;
+  width: 90%;
+  height: 4em;
+  border-bottom: 1px solid #909090;
+}
+
+ul.airportList li:nth-of-type(odd) {
+  background-color: #DFDFDF;
+  transition: background-color 0.7s;
+  transition-timing-function: ease-in;
+}
+
+ul.airportList li:nth-of-type(even) {
+  background-color: #EFEFEF;
+  transition: background-color 0.7s;
+  transition-timing-function: ease-in;
+}
+
+ul.airportList li:hover {
+  background-color: #FFEFEF;
+  transition: background-color 0.1s;
+  transition-timing-function: ease-out;
+}
+
+ul.airportList p {
+  margin: 0 0 0.4em 0;
+  font-size: 1rem;
+  text-shadow: 1px 1px 0 #A0A0A0;
+}
+
+/* FLIGHT LIST */
+
+ul.flightList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.flightList li {
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+  height: 4em;
+  border-bottom: 1px solid #909090;
+  cursor: pointer;
+}
+
+ul.flightList li:nth-of-type(odd) {
+  background-color: #DFDFDF;
+  transition: background-color 0.7s;
+  transition-timing-function: ease-in;
+}
+
+ul.flightList li:nth-of-type(even) {
+  background-color: #EFEFEF;
+  transition: background-color 0.7s;
+  transition-timing-function: ease-in;
+}
+
+ul.flightList li:hover {
+  background-color: #FFEFEF;
+  transition: background-color 0.1s;
+  transition-timing-function: ease-out;
+}
+
+ul.flightList p {
+  margin: 0 0 0.4em 0;
+  font-size: 1rem;
+  text-shadow: 1px 1px 0 #A0A0A0;
+}
+
+.flightRoute {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.timeDeparture::before {
+  content: "↗️";
+}
+
+.timeArrival::before {
+  content: "↘️";
+}
+
+/* WAIT OVERLAY WRAPPER */
+
+#waitOverlayWrapper {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(70, 70, 70, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#waitOverlayContent {
+  width: 180px;
+  height: 150px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid gray;
+  box-shadow: 5px 5px 5px #9F9F9F;
+  position: absolute;
+  left: 40%;
+  top: calc(50% - 75px);
+}
+
+#waitPlane {
+  position: relative;
+  top: 5px;
+  left: 5px;
+  animation: planeFlight;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes planeFlight {
+  0% {
+    top: 15px;
+    left: 5px;
+    transform: rotate(0deg);
+  }
+  45% {
+    top: 15px;
+    left: 140px;
+    transform: rotate(0deg);
+  }
+  55% {
+    top: 15px;
+    left: 140px;
+    transform: rotate(180deg);
+  }
+  95% {
+    top: 15px;
+    left: 5px;
+    transform: rotate(180deg);
+  }
+  100% {
+    top: 15px;
+    left: 5px;
+    transform: rotate(0deg);
+  }
+}
+
+.hidden {
+  display: none;
+}
