@@ -1,6 +1,6 @@
 # Flugsuche
 
-Flugsuche erstellt mit NPM und parcel bundler.
+Flugrouten und Zeitzonen-Karte für Flugsuche erstellt mit NPM und parcel bundler.
 Direkt ausführbare Index.html ist in Ordner /dist zu finden und auszuführen.
 
 Code kann der Index.html und Index.js entnommen werden.
