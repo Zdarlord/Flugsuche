@@ -12,11 +12,12 @@ import KML from 'ol/format/KML.js';
 import Stamen from 'ol/source/Stamen.js';
 import LineString from 'ol/geom/LineString.js';
 
-/*** Map and Time Zone Set Up ***/
+/*** Map und Time Zone Set Up ***/
 
+// Color Layer und Fade für die Zeitzonen nach GMT
 var styleFunction = function(feature) {
     var offset = 0;
-    var name = feature.get('name'); // e.g. GMT -08:30
+    var name = feature.get('name');
     var match = name.match(/([\-+]\d{2}):(\d{2})$/);
     if (match) {
         var hours = parseInt(match[1], 10);
@@ -26,7 +27,6 @@ var styleFunction = function(feature) {
     var date = new Date();
     var local = new Date(date.getTime() +
         (date.getTimezoneOffset() + offset) * 60000);
-    // offset from local noon (in hours)
     var delta = Math.abs(12 - local.getHours() + (local.getMinutes() / 60));
     if (delta > 12) {
         delta = 24 - delta;
@@ -110,8 +110,7 @@ map.on('click', function(evt) {
 
 //------------------------------------------------------------------------------
 
-/*** FlightPaths ***/
-
+/*** Style der Verbindungspfade ***/
 
 var style = new Style({
     stroke: new Stroke({
@@ -119,6 +118,8 @@ var style = new Style({
         width: 1
     })
 });
+
+/*** Erstellung der Vektoren für die Flugdaten ***/
 
 var flightsSource = new VectorSource({
     wrapX: false,
@@ -132,7 +133,6 @@ var flightsSource = new VectorSource({
             var from = flight[0];
             var to = flight[1];
 
-            // create an arc circle between the two locations
             var arcGenerator = new arc.GreatCircle(
                 {x: from[1], y: from[0]},
                 {x: to[1], y: to[0]});
@@ -146,8 +146,7 @@ var flightsSource = new VectorSource({
                     geometry: line,
                     finished: false
                 });
-                // add the feature with a delay so that the animation
-                // for all features does not start at the same time
+              
                 addLater(feature, i * 50);
             }
         }
@@ -155,11 +154,11 @@ var flightsSource = new VectorSource({
     }
 });
 
+/*** Erstellen des Map Layers und Hinzufügen zur Map ***/
+
 var flightsLayer = new VectorLayer({
     source: flightsSource,
     style: function(feature) {
-        // if the animation is still active for a feature, do not
-        // render the feature with the layer style
         if (feature.get('finished')) {
             return style;
         } else {
@@ -169,6 +168,8 @@ var flightsLayer = new VectorLayer({
 });
 
 map.addLayer(flightsLayer);
+
+/*** Animation für die Flugrouten ***/
 
 var pointsPerMs = 0.1;
 function animateFlights(event) {
@@ -180,7 +181,6 @@ function animateFlights(event) {
     for (var i = 0; i < features.length; i++) {
         var feature = features[i];
         if (!feature.get('finished')) {
-            // only draw the lines for which the animation has not finished yet
             var coords = feature.getGeometry().getCoordinates();
             var elapsedTime = frameState.time - feature.get('start');
             var elapsedPoints = elapsedTime * pointsPerMs;
@@ -192,11 +192,9 @@ function animateFlights(event) {
             var maxIndex = Math.min(elapsedPoints, coords.length);
             var currentLine = new LineString(coords.slice(0, maxIndex));
 
-            // directly draw the line with the vector context
             vectorContext.drawGeometry(currentLine);
         }
     }
-    // tell OpenLayers to continue the animation
     map.render();
 }
 
